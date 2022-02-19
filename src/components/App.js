@@ -1,25 +1,32 @@
-import { useState } from 'react';
-import Header from './Header';
-import Footer from './Footer';
+import React from 'react';
 import './App.css';
 
-function App() {
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.inputRef = React.createRef();
+    this.alterInputValue = this.alterInputValue.bind(this);
+  }
 
-  const [name, setName] = useState("Body");
+  componentDidMount() {
+    this.inputRef.current.focus();
+    console.log(this.inputRef);
+  }
 
-  // Update state of name after 2 second
-  // illusion of fething data from server
-  setTimeout(() => {
-    setName("Suraj");
-  }, 2000);
+  alterInputValue  = () => {
+    alert(this.inputRef.current.value);
+  }
 
-  return (
-    <div className="App">
-      <Header />
-      <p>{ name }</p>
-      <Footer />
-    </div>
-  );
+  render() {
+    return (
+      <div className='App'>
+        {/* When the component is rendered first focus on Input field */}
+        <input type="text" ref={this.inputRef}></input> |
+				{/* Get value of Input filed */} 
+        <button onClick={this.alterInputValue}>Alert</button>
+      </div>
+    );
+  }
 }
 
 export default App;
